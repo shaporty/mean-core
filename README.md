@@ -1,5 +1,5 @@
 # mean-core
-$ git clone https://github.com/naserdehghan/mean-core.git
+$ git clone https://github.com/naserdehghan/mean-core.git <br>
 $ cd mean-core
 $ npm i
 $ cd view
