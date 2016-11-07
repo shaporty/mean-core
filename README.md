@@ -1,8 +1,8 @@
 # mean-core
 $ git clone https://github.com/naserdehghan/mean-core.git <br>
-$ cd mean-core
-$ npm i
-$ cd view
-$ npm i
-$ cd ..
-$ npm start
+$ cd mean-core <br>
+$ npm i <br>
+$ cd view <br>
+$ npm i <br>
+$ cd .. <br>
+$ npm start <br>
