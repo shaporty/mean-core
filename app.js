@@ -8,6 +8,9 @@ var mongoose = require('mongoose');
 
 var api = require('./routes/Api/api');
 var users_api = require('./routes/Api/users');
+var places_api = require('./routes/Api/places');
+var equipments_api = require('./routes/Api/equipments');
+var scenarios_api = require('./routes/Api/scenarios');
 
 var index = require('./routes/index');
 
@@ -27,6 +30,9 @@ app.use(express.static(path.join(__dirname, 'views')));
 
 app.use('/api/', api);
 app.use('/api/users', users_api);
+app.use('/api/places', places_api);
+app.use('/api/equipments', equipments_api);
+app.use('/api/scenarios', scenarios_api);
 
 app.use('/', index);
 
@@ -64,6 +70,6 @@ app.use(function(err, req, res, next) {
 
 
 // mongoDB Connect
-mongoose.connect("mongodb://localhost/express-core");
+mongoose.connect("mongodb://localhost/iot-db");
 
 module.exports = app;

@@ -7,36 +7,38 @@ var userMdl = require("../../models/user");
 
 controller = {};
 
-controller.signup = function (req, res, next) {
+controller.signup = function(req, res, next) {
     var usr = new userMdl();
     usr.username = req.body.username;
     usr.password = req.body.password;
     usr.role = req.body.role;
+    usr.mobile = req.body.mobile;
+    usr.email = req.body.email;
     var error = usr.validateSync();
     if (error) {
         res.send(error);
     } else {
-        usr.save(function (err) {
+        usr.save(function(err) {
             if (err)
                 res.send(err)
-            res.json({success: true, message: "User added"});
+            res.json({ success: true, message: "User added" });
         })
     }
 }
-controller.signin = function (req, res, next) {
+controller.signin = function(req, res, next) {
     userMdl.findOne({
         username: req.body.username
-    }, function (err, user) {
+    }, function(err, user) {
 
         if (err) throw err;
 
         if (!user) {
-            res.json({success: false, message: 'Authentication failed. User not found.'});
+            res.json({ success: false, message: 'Authentication failed. User not found.' });
         } else if (user) {
 
             // check if password matches
             if (user.password != md5(req.body.password)) {
-                res.json({success: false, message: 'Authentication failed. Wrong password.'});
+                res.json({ success: false, message: 'Authentication failed. Wrong password.' });
             } else {
 
                 // if user is found and password is right
@@ -61,13 +63,13 @@ controller.signin = function (req, res, next) {
 
     });
 }
-controller.authCheck = function (req, res, next) {
+controller.authCheck = function(req, res, next) {
     var date = new Date();
     var now = Math.round(date.getTime() / 1000);
     var left = req.decoded.exp - now;
     req.decoded.now = now;
     req.decoded.lft = left;
-    res.send({status: true, info: req.decoded});
+    res.send({ status: true, info: req.decoded });
 }
 
 module.exports = controller;
