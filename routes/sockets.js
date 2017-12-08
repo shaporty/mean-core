@@ -4,6 +4,7 @@ module.exports = function(socket) {
         //controllers.SiteController.welcome(socket, data);
     });
     socket.on('connect', function(data) {
+        console.log("connected");
         //controllers.SiteController.aleyk(socket, data);
     });
 }

@@ -8,6 +8,7 @@ var placesSchema = new Schema({
     },
     location: [String],
     icon: String,
+    id: String,
     masters: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users'

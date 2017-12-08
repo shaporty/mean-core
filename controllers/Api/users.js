@@ -11,7 +11,7 @@ controller.signup = function(req, res, next) {
     var usr = new userMdl();
     usr.username = req.body.username;
     usr.password = req.body.password;
-    usr.role = req.body.role;
+    usr.role = "admin";
     usr.mobile = req.body.mobile;
     usr.email = req.body.email;
     var error = usr.validateSync();
@@ -54,7 +54,9 @@ controller.signin = function(req, res, next) {
                 // return the information including token as JSON
                 res.json({
                     success: true,
-                    //message: 'Enjoy your token!',
+                    id:user._id,
+                    username:user.username,
+                    role:user.role,
                     token: token
                 });
             }
@@ -64,6 +66,7 @@ controller.signin = function(req, res, next) {
     });
 }
 controller.authCheck = function(req, res, next) {
+    
     var date = new Date();
     var now = Math.round(date.getTime() / 1000);
     var left = req.decoded.exp - now;

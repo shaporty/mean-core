@@ -11,5 +11,6 @@ router.post('/add', authMid.authentication, authMid.role(["parent", "admin"]), p
 router.post('/edit', authMid.authentication, authMid.role(["parent", "admin"]), placesCtrl.edit);
 router.post('/detail', authMid.authentication, authMid.role(["parent", "admin"]), placesCtrl.detail);
 router.post('/myplaces', authMid.authentication, authMid.role(["parent", "admin"]), placesCtrl.myplaces);
+router.post('/delete', authMid.authentication, authMid.role(["parent", "admin"]), placesCtrl.delete);
 
 module.exports = router;

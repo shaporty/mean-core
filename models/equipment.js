@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var equipmentsSchema = new Schema({
-    title: {
+    name: {
         type: String,
         required: true
     },
@@ -11,25 +11,29 @@ var equipmentsSchema = new Schema({
         ref: 'Places',
         required: true
     },
-    code: {
-        type: String,
-    },
-    typeid: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Iottypes'
-    },
-    details: {
-        ip: String,
-        phone: String,
-        sendcreadit: Boolean,
-        pins: [{
-            name: String,
-            status: String
-        }]
-    },
     users: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users'
+    }],
+    title:String,
+    cat: String,
+    ip: String,
+    key: String,
+    phone: String,
+    sendcreadit: Boolean,
+    online:Boolean,
+    pins: [{
+        name: String,
+        status: String,
+        title: String,
+        log:[{
+            value:String,
+            date:Date,
+            user:{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Users',
+            }
+        }]
     }]
 });
 

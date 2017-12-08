@@ -90,14 +90,52 @@ function onListening() {
 }
 
 var io = require('socket.io')(server);
-
+app.set('online_equipments', []);
+app.set('online_users', []);
 /*------------------------------------------------------------------
 | Socket.io Configuration ------------------------------------------
 |-----------------------------------------------------------------*/
 var socketRoutes = require('../routes/sockets');
 io.on('connection', function(socket) {
-    socket.join('guests');
-    console.log('Active Sockets : %s', io.sockets.adapter.rooms.guests.length);
+    socket.join('iot');
+    console.log('Active Sockets : %s', io.sockets.adapter.rooms.iot.length);
     new socketRoutes(socket);
-    socket.emit('user:message', { message: "salam" });
+    
+    app.set('socketioObj', socket);
+    
+    socket.on('connect_equipment', function(data) {
+        console.log(data);
+        app.settings.online_equipments.push({
+            socketid: socket.id,
+            equipmentid: data.equipmentid
+        });
+    });
+    socket.on('connect_user', function(data) {
+        result = JSON.parse(data);
+        var ous = app.settings.online_users.push({
+            socketid: socket.id,
+            userid: result.userid
+        });
+    });
+    socket.on('disconnect', function(socket) {
+        for (let i = 0; i < app.settings.online_users.length; i++) {
+            if (app.settings.online_users[i].socketid === socket.id) {
+                app.settings.online_users.splice(i, 1);
+            }
+        }
+        for (let i = 0; i < app.settings.online_equipments.length; i++) {
+            if (app.settings.online_equipments[i].socketid === socket.id) {
+                app.settings.online_equipments.splice(i, 1);
+            }
+        }
+    });
+    socket.on('controliot', (data) => {
+        result = JSON.parse(data);
+        var oeq = app.get('online_equipments');
+        for (let i = 0; i < oeq.length; i++) {
+            if (oeq[i].equipmentid == result.equipmentid) {
+                socket.broadcast.to(oeq[i].socketid).emit('socketaction', result);
+            }
+        }
+    });
 });

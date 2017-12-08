@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'views')));
 
-app.use('/api/', api);
+app.use('/api/', api); 
 app.use('/api/users', users_api);
 app.use('/api/places', places_api);
 app.use('/api/equipments', equipments_api);

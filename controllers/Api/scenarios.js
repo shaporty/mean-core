@@ -44,4 +44,10 @@ controller.myscenarios = function(req, res, next) {
         res.json(scenarios);
     });
 }
+controller.delete = function(req, res, next) {
+    scenarioMdl.findByIdAndRemove(req.body.id, function(err, e) {
+        if (err) throw err;
+        res.json(e);
+    });
+}
 module.exports = controller;

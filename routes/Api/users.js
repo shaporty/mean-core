@@ -9,6 +9,6 @@ router.get('/', function(req, res, next) {
 
 router.post('/signup', authMid.UserExist, usersCtrl.signup);
 router.post('/signin', usersCtrl.signin);
-router.all('/authCheck', authMid.authentication, authMid.role(["user", "admin"]), usersCtrl.authCheck);
+router.post('/authCheck', authMid.authentication, authMid.role(["user", "admin"]), usersCtrl.authCheck);
 
 module.exports = router;

@@ -7,9 +7,11 @@ router.get('/', function(req, res, next) {
     res.send('respond with a resource');
 });
 
+router.post('/savelog',equipmentsCtrl.savelog);
 router.post('/add', authMid.authentication, authMid.role(["parent", "admin"]), equipmentsCtrl.add);
 router.post('/edit', authMid.authentication, authMid.role(["parent", "admin"]), equipmentsCtrl.edit);
 router.post('/detail', authMid.authentication, authMid.role(["parent", "admin"]), equipmentsCtrl.detail);
 router.post('/myequipments', authMid.authentication, authMid.role(["parent", "admin"]), equipmentsCtrl.myequipments);
+router.post('/delete', authMid.authentication, authMid.role(["parent", "admin"]), equipmentsCtrl.delete);
 
 module.exports = router;

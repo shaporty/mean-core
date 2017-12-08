@@ -11,5 +11,6 @@ router.post('/add', authMid.authentication, authMid.role(["parent", "admin"]), s
 router.post('/edit', authMid.authentication, authMid.role(["parent", "admin"]), scenariosCtrl.edit);
 router.post('/detail', authMid.authentication, authMid.role(["parent", "admin"]), scenariosCtrl.detail);
 router.post('/myequipments', authMid.authentication, authMid.role(["parent", "admin"]), scenariosCtrl.myscenarios);
+router.post('/delete', authMid.authentication, authMid.role(["parent", "admin"]), scenariosCtrl.delete);
 
 module.exports = router;
