@@ -26,7 +26,7 @@ controller.savelog = function(req, res, next) {
 
         }
     );
-    console.log(req.app.settings.online_users);
+    console.log("log saved eq_id =" + equipmentid);
     var us = req.app.settings.online_users;
     var socket = req.app.settings.socketioObj;
     eqMdl2.findOne({
@@ -36,7 +36,14 @@ controller.savelog = function(req, res, next) {
         for (let i1 = 0; i1 < equipment.users.length; i1++) {
             for (let i = 0; i < us.length; i++) {
                 if (us[i].userid == equipment.users[i1]) {
-                    socket.broadcast.to(us[i].socketid).emit('log', { salam: "aleyk" });
+                    var pobj = {
+                        equipmentid: req.body.equipmentid,
+                        userid: req.body.userid,
+                        pinname: req.body.pinname,
+                        pinvalue: req.body.pinvalue
+                    };
+                    us[i].socket.emit('lognotify', pobj);
+                    console.log("smart device emited");
                 }
             }
         }

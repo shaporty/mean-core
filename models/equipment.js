@@ -8,8 +8,7 @@ var equipmentsSchema = new Schema({
     },
     placeid: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Places',
-        required: true
+        ref: 'Places'
     },
     users: [{
         type: mongoose.Schema.Types.ObjectId,
